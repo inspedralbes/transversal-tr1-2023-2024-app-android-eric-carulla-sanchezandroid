@@ -56,8 +56,7 @@
         android:background="@drawable/round_boton"
         android:text="accedir"
         app:iconTint="#000000"
-        app:rippleColor="#000000"
-        android:onClick="login">
+        app:rippleColor="#000000">
 
     </Button>
 

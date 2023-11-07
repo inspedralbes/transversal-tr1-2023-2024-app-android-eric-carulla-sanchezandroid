@@ -16,6 +16,11 @@ public class Pagament extends AppCompatActivity {
     }
 
 
+
+
+
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {

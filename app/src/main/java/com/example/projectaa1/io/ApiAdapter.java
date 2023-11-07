@@ -8,11 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiAdapter {
 
-        private static ApiService API_SERVICE;
+        private static ApiInterface API_SERVICE;
 
-        private static final String BASE_URL = "http://localhost:9000";
+        private static final String BASE_URL = "http://192.168.1.39:9000";
 
-        public static ApiService getApiService() {
+        public static ApiInterface getApiService() {
             // Creamos un interceptor y le indicamos el log level a usar
             final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -28,7 +28,7 @@ public class ApiAdapter {
                         .client(httpClient.build()) // <-- set log level
                         .build();
 
-                API_SERVICE = retrofit.create(ApiService.class);
+                API_SERVICE = retrofit.create(ApiInterface.class);
             }
 
             return API_SERVICE;
