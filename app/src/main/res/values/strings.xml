@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Projectaa1</string>
+
+    <string name="item1">Perfil</string>
+    <string name="item2">Tornar</string>
+    <string name="item3">Tancar Sessió</string>
+</resources>
