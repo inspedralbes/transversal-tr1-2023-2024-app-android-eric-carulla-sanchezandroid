@@ -15,9 +15,9 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
-    private List<Item> itemList;
+    private List<Items> itemList;
 
-    public ItemAdapter(List<Item> itemList) {
+    public ItemAdapter(List<Items> itemList) {
         this.itemList = itemList;
     }
 
@@ -31,14 +31,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Item item = itemList.get(position);
+        Items item = itemList.get(position);
         holder.prodName.setText(item.getNombre());
         holder.prodPrice.setText("Precio: " + item.getPrecio());
         holder.prodDescription.setText(item.getDescripcion());
-
-        // Carga la imagen del producto aquí usando una biblioteca como Picasso o Glide.
-        // Por ejemplo: Picasso.get().load(item.getImageUrl()).into(holder.prodImage);
     }
+
+
 
     @Override
     public int getItemCount() {

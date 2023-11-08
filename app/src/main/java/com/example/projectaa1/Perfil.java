@@ -7,7 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projectaa1.io.ApiInterface;
-import com.example.projectaa1.io.response.Usuario;
+import com.example.projectaa1.io.response.usuario;
+
 
 import java.util.List;
 
@@ -31,23 +32,23 @@ public class Perfil extends AppCompatActivity {
 
         // Crear una instancia de Retrofit y la interfaz de la API
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.39:9000")  // Reemplaza con la dirección de tu servidor
+                .baseUrl("http://192.168.1.39:9000/usuario/")  // Reemplaza con la dirección de tu servidor
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         // Realizar una solicitud para obtener la lista de usuarios
-        Call<List<Usuario>> call = apiInterface.obtenerUsuario();
-        call.enqueue(new Callback<List<Usuario>>() {
+        Call<List<usuario>> call = apiInterface.obtenerUsuario();
+        call.enqueue(new Callback<List<usuario>>() {
             @Override
-            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+            public void onResponse(Call<List<usuario>> call, Response<List<usuario>> response) {
                 if (response.isSuccessful()) {
-                    List<Usuario> usuarios = response.body();
+                    List<usuario> usuarios = response.body();
 
                     // Procesa y muestra los usuarios en la interfaz de usuario
                     if (!usuarios.isEmpty()) {
-                        Usuario primerUsuario = usuarios.get(0);
+                        usuario primerUsuario = usuarios.get(1);
                         String nombre = primerUsuario.getNombre();
                         String email = primerUsuario.getEmail();
 
@@ -66,7 +67,7 @@ public class Perfil extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Usuario>>call, Throwable t) {
+            public void onFailure(Call<List<usuario>>call, Throwable t) {
                 String error = t.getMessage();
                 // Manejar errores de red, como mostrar un mensaje de error de conexión
                 Toast.makeText(Perfil.this, "Error de conexión "+ error, Toast.LENGTH_SHORT).show();

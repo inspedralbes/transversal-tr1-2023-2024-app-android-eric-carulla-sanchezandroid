@@ -10,7 +10,7 @@ public class ApiAdapter {
 
         private static ApiInterface API_SERVICE;
 
-        private static final String BASE_URL = "http://192.168.1.39:9000";
+        private static final String BASE_URL = "http://192.168.1.39:9000/";
 
         public static ApiInterface getApiService() {
             // Creamos un interceptor y le indicamos el log level a usar

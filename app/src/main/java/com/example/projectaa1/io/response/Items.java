@@ -1,7 +1,7 @@
 package com.example.projectaa1.io.response;
 
 
-    public class Item {
+    public class Items {
         private int id;
         private String nombre;
         private String descripcion;

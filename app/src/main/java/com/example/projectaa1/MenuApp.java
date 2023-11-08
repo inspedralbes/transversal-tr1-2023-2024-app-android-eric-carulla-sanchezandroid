@@ -21,8 +21,8 @@ import android.widget.Toast;
 import android.widget.Toast;
 
 import com.example.projectaa1.io.ApiInterface;
-import com.example.projectaa1.io.response.Item;
 import com.example.projectaa1.io.response.ItemAdapter;
+import com.example.projectaa1.io.response.Items;
 
 import java.util.List;
 
@@ -41,19 +41,19 @@ public class MenuApp extends AppCompatActivity {
 
         // Crear una instancia de Retrofit y la interfaz de la API
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:9000/")  // Agrega una barra inclinada al final
+                .baseUrl("http://192.168.1.39:9000/Items/")  // Agrega una barra inclinada al final
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         // Realizar una solicitud para obtener la lista de elementos
-        Call<List<Item>> call = apiInterface.obtenerItems();
-        call.enqueue(new Callback<List<Item>>() {
+        Call<List<Items>> call = apiInterface.obtenerItems();
+        call.enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
                 if (response.isSuccessful()) {
-                    List<Item> items = response.body();
+                    List<Items> items = response.body();
                     // Procesar y mostrar los elementos en la interfaz de compra
                     mostrarItemsEnInterfaz(items);
                 } else {
@@ -63,7 +63,7 @@ public class MenuApp extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 // Manejar errores de red, como mostrar un mensaje de error de conexión
                 Toast.makeText(MenuApp.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
@@ -92,13 +92,13 @@ public class MenuApp extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void mostrarItemsEnInterfaz(List<Item> items) {
+    private void mostrarItemsEnInterfaz(List<Items> Items) {
 
         // 2. En esta actividad, después de obtener los elementos, configura el RecyclerView:
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
 // Crea un adaptador personalizado y configúralo con tus elementos
-        ItemAdapter itemAdapter = new ItemAdapter(items);
+        ItemAdapter itemAdapter = new ItemAdapter(Items);
 
 // Establece el adaptador en el RecyclerView
         recyclerView.setAdapter(itemAdapter);

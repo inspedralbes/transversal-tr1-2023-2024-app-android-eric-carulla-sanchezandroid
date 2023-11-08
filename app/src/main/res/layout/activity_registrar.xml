@@ -20,85 +20,67 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="117dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="117dp"
         android:color="#000000"
         android:text="  Registar-se"
         android:textSize="25dp" />
 
 
-    <EditText
-        android:id="@+id/t_nombre"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/Titulo"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="80dp"
-        android:minHeight="48dp"
-        android:hint="Nom"
-        android:textSize="15dp" />
+        android:layout_marginTop="30dp"
+        android:padding="16dp"
+        tools:context=".RegistroActivity">
 
-    <EditText
-        android:id="@+id/t_email"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/t_nombre"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="230dp"
-        android:layout_marginEnd="80dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:textSize="15dp" />
+        <EditText
+            android:id="@+id/editTextNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:minHeight="48dp" />
 
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextNombre"
+            android:layout_marginTop="16dp"
+            android:hint="Correo Electrónico"
+            android:minHeight="48dp" />
 
-    <EditText
-        android:id="@+id/t_pass"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/t_email"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="80dp"
-        android:minHeight="48dp"
-        android:hint="Contrasenya"
-        android:textSize="15dp" />
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextEmail"
+            android:layout_marginTop="16dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
 
+        <EditText
+            android:id="@+id/editTextTarjeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextPassword"
+            android:layout_marginTop="16dp"
+            android:hint="Número de Tarjeta"
+            android:minHeight="48dp" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextTarjeta"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:onClick="registrarUsuario"
+            android:text="Registrar" />
 
-    <Button
-        android:id="@+id/Registrar"
-        android:layout_width="90dp"
-        android:layout_height="55dp"
-        android:layout_below="@+id/t_pass"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/round_boton"
-        android:text="Registrar!"
-        app:iconTint="#000000"
-        app:rippleColor="#000000"
+    </RelativeLayout>
 
-        />
-
-
-
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
 
 
 </RelativeLayout>

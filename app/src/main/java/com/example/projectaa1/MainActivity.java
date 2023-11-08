@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     private EditText etEmail, etPassword;
     private String email, password;
-    private final String URL = "http://192.168.1.39:9000";
+    private final String URL = "http://192.168.1.39:9000/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Perfil.class);
+                Intent intent = new Intent(MainActivity.this, MenuApp.class);
                 startActivity(intent);
                 finish();
             }
