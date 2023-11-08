@@ -6,15 +6,11 @@ public class usuario {
     private String nombre;
     private String email;
     private String password;
-    private String tarjeta;
+    private int tarj;
 
-
-    public usuario(String nombre, String email, String password, String tarjeta) {
-        this.nombre = nombre;
-        this.email = email;
-        this.password = password;
-        this.tarjeta = tarjeta;
+    public usuario(String nombre, String email, String password, int tarj) {
     }
+
 
     public String getNombre() {
         return nombre;
@@ -40,12 +36,12 @@ public class usuario {
         this.password = password;
     }
 
-    public String getTarjeta() {
-        return tarjeta;
+    public int getTarj() {
+        return tarj;
     }
 
-    public void setTarjeta(String tarjeta) {
-        this.tarjeta = tarjeta;
+    public void setTarj(int tarj) {
+        this.tarj = tarj;
     }
 
 }
