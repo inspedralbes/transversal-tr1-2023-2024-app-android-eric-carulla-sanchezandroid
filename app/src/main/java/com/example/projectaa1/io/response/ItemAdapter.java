@@ -1,5 +1,6 @@
 package com.example.projectaa1.io.response;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,35 +9,47 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.projectaa1.R;
-
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private List<Items> itemList;
+    private List<Item> itemList;
+    private Context context;
 
-    public ItemAdapter(List<Items> itemList) {
+    public ItemAdapter(List<Item> itemList, Context context) {
         this.itemList = itemList;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
-        return new ItemViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
+        return new ViewHolder(view);
     }
-
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Items item = itemList.get(position);
-        holder.prodName.setText(item.getNombre());
-        holder.prodPrice.setText("Precio: " + item.getPrecio());
-        holder.prodDescription.setText(item.getDescripcion());
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Item item = itemList.get(position);
 
+        holder.idTextView.setText("ID: " + item.getId());
+        holder.nombreTextView.setText("Nombre: " + item.getNombre());
+        holder.descripcionTextView.setText("Descripción: " + item.getDescripcion());
+        holder.precioTextView.setText("Precio: " + item.getPrecio());
+
+        // Obtiene el ID del recurso de imagen desde el nombre de la imagen
+        int imagenResourceId = 0;  // Por defecto, establecer a 0 o a un recurso predeterminado
+
+        // Verifica si el nombre de la imagen no es nulo antes de intentar obtener el recurso
+        if (item.getImagen() != null) {
+            imagenResourceId = context.getResources().getIdentifier(
+                    item.getImagen(), "drawable", context.getPackageName());
+        }
+
+        // Establece la imagen desde el recurso de imagen
+        holder.imagenImageView.setImageResource(imagenResourceId);
+    }
 
 
     @Override
@@ -44,16 +57,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return itemList.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView prodName, prodPrice, prodDescription;
+        public TextView idTextView;
+        public TextView nombreTextView;
+        public TextView descripcionTextView;
+        public TextView precioTextView;
+        public ImageView imagenImageView;
 
-        public ItemViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            prodName = itemView.findViewById(R.id.prodName);
-            prodPrice = itemView.findViewById(R.id.prodPrice);
-            prodDescription = itemView.findViewById(R.id.prodDescription);
+            idTextView = itemView.findViewById(R.id.idTextView);
+            nombreTextView = itemView.findViewById(R.id.nombreTextView);
+            descripcionTextView = itemView.findViewById(R.id.descripcionTextView);
+            precioTextView = itemView.findViewById(R.id.precioTextView);
+            imagenImageView = itemView.findViewById(R.id.imagenImageView);
         }
     }
 }

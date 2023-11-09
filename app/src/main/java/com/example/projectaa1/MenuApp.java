@@ -1,28 +1,16 @@
-package com.example.projectaa1;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
+package com.example.projectaa1;import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 import android.widget.Toast;
 
 import com.example.projectaa1.io.ApiInterface;
+import com.example.projectaa1.io.response.Item;
 import com.example.projectaa1.io.response.ItemAdapter;
-import com.example.projectaa1.io.response.Items;
 
 import java.util.List;
 
@@ -39,34 +27,38 @@ public class MenuApp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_app);
 
+
         // Crear una instancia de Retrofit y la interfaz de la API
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.39:9000/Items/")  // Agrega una barra inclinada al final
+                .baseUrl("http://192.168.1.39:9000")  // Reemplaza con la dirección de tu servidor
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         // Realizar una solicitud para obtener la lista de elementos
-        Call<List<Items>> call = apiInterface.obtenerItems();
-        call.enqueue(new Callback<List<Items>>() {
+        Call<List<Item>> call = apiInterface.obtenerItems();
+        call.enqueue(new Callback<List<Item>>() {
             @Override
-            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
+            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 if (response.isSuccessful()) {
-                    List<Items> items = response.body();
-                    // Procesar y mostrar los elementos en la interfaz de compra
-                    mostrarItemsEnInterfaz(items);
+                    List<Item> items = response.body();
+                    if (items != null) {
+                        mostrarItemsEnInterfaz(items);
+                    } else {
+                        Toast.makeText(MenuApp.this, "La lista de elementos es nula", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    // Manejar errores de respuesta, como mostrar un mensaje de error
-                    Toast.makeText(MenuApp.this, "Error al obtener elementos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MenuApp.this, "Error en la respuesta: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Items>> call, Throwable t) {
-                // Manejar errores de red, como mostrar un mensaje de error de conexión
-                Toast.makeText(MenuApp.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<Item>> call, Throwable t) {
+                Toast.makeText(MenuApp.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("MenuApp", "Error de conexión", t);
             }
+
         });
     }
 
@@ -92,20 +84,14 @@ public class MenuApp extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void mostrarItemsEnInterfaz(List<Items> Items) {
+    private void mostrarItemsEnInterfaz(List<Item> items) {
 
-        // 2. En esta actividad, después de obtener los elementos, configura el RecyclerView:
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
-// Crea un adaptador personalizado y configúralo con tus elementos
-        ItemAdapter itemAdapter = new ItemAdapter(Items);
-
-// Establece el adaptador en el RecyclerView
-        recyclerView.setAdapter(itemAdapter);
-
-// Configura el diseño del RecyclerView (por ejemplo, LinearLayoutManager)
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        // 3. Crea un adaptador personalizado para tus elementos y configúralo:
+        ItemAdapter itemAdapter = new ItemAdapter(items, MenuApp.this);
+        recyclerView.setAdapter(itemAdapter);
     }
 }
