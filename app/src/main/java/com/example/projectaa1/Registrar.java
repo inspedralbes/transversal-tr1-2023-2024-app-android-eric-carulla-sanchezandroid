@@ -1,6 +1,8 @@
 package com.example.projectaa1;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -60,6 +62,8 @@ public class Registrar extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(Registrar.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(Registrar.this, MainActivity.class);
+                    startActivity(i);
                 } else {
                     Toast.makeText(Registrar.this, "Error al registrar usuario: " + response.message(), Toast.LENGTH_SHORT).show();
                 }

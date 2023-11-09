@@ -11,7 +11,6 @@ public class usuario {
     public usuario(String nombre, String email, String password, int tarj) {
     }
 
-
     public String getNombre() {
         return nombre;
     }
